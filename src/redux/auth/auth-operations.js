@@ -20,9 +20,9 @@ const register = credential => async dispatch => {
         const res = await axios.post('/users/signup', credential);
         token.set(res.data.token);
         dispatch(authActions.registerSuccess(res.data));
-    }catch (err){
-        dispatch(authActions.registerError(err.message));
-
+        dispatch(authActions.registerError(''));
+    }catch (error){
+        dispatch(authActions.registerError(error));
     }
 }
 
@@ -33,9 +33,9 @@ const login = credential => async dispatch => {
         const res = await axios.post('/users/login', credential);
         token.set(res.data.token);
         dispatch(authActions.loginSuccess(res.data));
+        dispatch(authActions.loginError(''));
     }catch (err){
-        dispatch(authActions.loginError(err.message));
-
+        dispatch(authActions.loginError(err));
     }
 }
 
@@ -47,7 +47,7 @@ const logout = () => async dispatch => {
         token.unset();
         dispatch(authActions.logoutSuccess());
     }catch (err){
-        dispatch(authActions.logoutError(err.message));
+        dispatch(authActions.logoutError(err));
 
     }
 }
@@ -70,7 +70,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
         const res = await axios.get('/users/current')
         dispatch(authActions.getCurrentUserSuccess(res.data));
     }catch (err){
-        dispatch(authActions.getCurrentUserError(err.message));
+        dispatch(authActions.getCurrentUserError(err));
 
     }
 }

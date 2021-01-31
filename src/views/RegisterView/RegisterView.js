@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect } from 'react-redux';
-import {authOperations} from './../../redux/auth';
+import {authOperations, authSelectors} from './../../redux/auth';
 
 const INITIAL_STATE = {
     name:"",
@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     password:""
 }
 
-function RegisterView({onRegister}){
+function RegisterView({onRegister, error}){
 
     const [state, setState] = useState({...INITIAL_STATE})
     const {name, email, password} = state;
@@ -43,19 +43,19 @@ function RegisterView({onRegister}){
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" name="password" value={password} onChange={handleChange} />
             </Form.Group>
-            
+            {error && <div style={{textAlign:'center', color:'red'}}>Ошибка создания пользователя</div>}
             <Button variant="primary" type="submit" style={{margin:'auto', display: 'block'}}>Sign Up</Button>
             
         </Form>
     )
 }
 
-// const mapStateToProps = state => {
-
-// }
+const mapStateToProps = (state) => ({
+    error:authSelectors.getError(state)
+})
 
 const mapDispatchToProps = {
     onRegister: authOperations.register
 }
 
-export default connect(null, mapDispatchToProps)(RegisterView);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterView);

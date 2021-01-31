@@ -23,7 +23,6 @@ const NotFound = lazy(() => import('./views/NotFound'))
 function App({getCurrentUser}){
 
     useEffect(()=>{
-        console.log('update app')
         getCurrentUser();
     }, [])
 
