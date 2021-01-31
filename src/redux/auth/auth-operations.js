@@ -39,6 +39,7 @@ const login = credential => async dispatch => {
     }
 }
 
+
 const logout = () => async dispatch => {
     dispatch(authActions.logoutRequest());
 
