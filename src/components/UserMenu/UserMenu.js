@@ -6,7 +6,6 @@ import avatar from './../../images/avatar.png';
 import {connect} from 'react-redux';
 import { authSelectors, authOperations } from './../../redux/auth';
 
-
 function UserMenu({getName, onLogout}){
     return(
         <div className={styles.flex}>
